@@ -1,0 +1,12 @@
+{
+  "name": "footballfixtures-poller",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Schedule-aware live poller. Runs on an always-on machine and triggers the server's /poll only during match windows. Competition-agnostic, zero dependencies.",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node poll.mjs",
+    "start:envfile": "node --env-file=.env poll.mjs"
+  }
+}

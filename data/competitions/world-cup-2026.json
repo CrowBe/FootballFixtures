@@ -1,0 +1,15 @@
+{
+  "_comment": "Pinned openfootball snapshot — seeded and updated by the seed-diff workflow (Milestone 2). Do not edit manually.",
+  "competition": {
+    "id": "world-cup-2026",
+    "name": "World Cup 2026",
+    "type": "cup",
+    "season": 2026,
+    "dataSource": {
+      "provider": "api-football",
+      "league": 1,
+      "season": 2026
+    }
+  },
+  "games": []
+}

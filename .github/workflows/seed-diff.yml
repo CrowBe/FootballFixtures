@@ -1,0 +1,36 @@
+# Milestone 5: Seed-diff → PR workflow
+# Fetches the latest openfootball snapshot, diffs against data/competitions/world-cup-2026.json,
+# and opens a PR if anything changed (new results, bracket slots resolved, venue/kickoff edits).
+#
+# This workflow is also what keeps the repository active (preventing GitHub's 60-day
+# auto-disable of scheduled workflows) — its periodic commits count as repo activity.
+#
+# Raise cadence around known bracket-resolution windows (end of group stage, knockout draws).
+
+name: Seed diff → PR
+
+on:
+  schedule:
+    # Daily at 06:00 UTC. Raise to every few hours around bracket-resolution windows.
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  seed-diff:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Milestone 5: implement the diff script at tools/seed-diff/run.mjs
+      - name: Run seed diff
+        run: echo "Seed diff script not yet implemented — coming in Milestone 5"
+        env:
+          POLL_SECRET: ${{ secrets.POLL_SECRET }}

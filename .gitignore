@@ -1,0 +1,19 @@
+node_modules/
+dist/
+build/
+.expo/
+*.tsbuildinfo
+
+# env files (never commit secrets)
+.env
+.env.local
+tools/poller/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
