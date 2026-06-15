@@ -1,15 +1,48 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { FlatList, View, Text, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
+import { useStandingsQuery } from '../../src/api/queries.js';
+import { GroupTable } from '../../src/components/GroupTable.js';
+import { COMPETITION_ID } from '../../src/constants.js';
 
-// Milestone 2: replace with real standings list backed by TanStack Query.
 export default function StandingsScreen() {
+  const { data, isLoading, isError, refetch, isRefetching } = useStandingsQuery(COMPETITION_ID);
+
+  if (isLoading) {
+    return (
+      <View style={styles.centre}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (isError || !data) {
+    return (
+      <View style={styles.centre}>
+        <Text style={styles.errorText}>Could not load standings. Check your connection.</Text>
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.placeholder}>Standings — coming in Milestone 2</Text>
-    </View>
+    <FlatList
+      data={data.standings}
+      keyExtractor={(item) => item.group}
+      renderItem={({ item }) => <GroupTable standing={item} />}
+      contentContainerStyle={styles.list}
+      refreshControl={
+        <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+      }
+      ListEmptyComponent={
+        <View style={styles.centre}>
+          <Text style={styles.emptyText}>No results yet — standings will appear once games kick off.</Text>
+        </View>
+      }
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  placeholder: { fontSize: 16, opacity: 0.5 },
+  list: { paddingBottom: 32, paddingTop: 8 },
+  centre: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
+  errorText: { fontSize: 15, color: '#888', textAlign: 'center' },
+  emptyText: { fontSize: 15, color: '#aaa', textAlign: 'center' },
 });

@@ -1,15 +1,87 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { SectionList, View, Text, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
+import { useScheduleQuery } from '../../src/api/queries.js';
+import { GameCard } from '../../src/components/GameCard.js';
+import { COMPETITION_ID } from '../../src/constants.js';
+import { localDateKey, formatKickoffDate } from '../../src/utils/time.js';
+import type { Game } from '@footballfixtures/shared';
 
-// Milestone 2: replace with real schedule list backed by TanStack Query.
+interface Section {
+  title: string;
+  dateKey: string;
+  data: Game[];
+}
+
+function groupByDate(games: Game[]): Section[] {
+  const map = new Map<string, Game[]>();
+  for (const game of [...games].sort(
+    (a, b) => Date.parse(a.kickoff) - Date.parse(b.kickoff),
+  )) {
+    const key = localDateKey(game.kickoff);
+    const list = map.get(key) ?? [];
+    list.push(game);
+    map.set(key, list);
+  }
+  return [...map.entries()].map(([dateKey, data]) => ({
+    dateKey,
+    title: formatKickoffDate(data[0]!.kickoff),
+    data,
+  }));
+}
+
 export default function ScheduleScreen() {
+  const { data, isLoading, isError, refetch, isRefetching } = useScheduleQuery(COMPETITION_ID);
+
+  if (isLoading) {
+    return (
+      <View style={styles.centre}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (isError || !data) {
+    return (
+      <View style={styles.centre}>
+        <Text style={styles.errorText}>Could not load schedule. Check your connection.</Text>
+      </View>
+    );
+  }
+
+  const sections = groupByDate(data.games);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.placeholder}>Schedule — coming in Milestone 2</Text>
-    </View>
+    <SectionList
+      sections={sections}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <GameCard game={item} />}
+      renderSectionHeader={({ section }) => (
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>{section.title}</Text>
+        </View>
+      )}
+      contentContainerStyle={styles.list}
+      stickySectionHeadersEnabled
+      refreshControl={
+        <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+      }
+      ListEmptyComponent={
+        <View style={styles.centre}>
+          <Text style={styles.emptyText}>No games scheduled.</Text>
+        </View>
+      }
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  placeholder: { fontSize: 16, opacity: 0.5 },
+  list: { paddingBottom: 32 },
+  centre: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
+  errorText: { fontSize: 15, color: '#888', textAlign: 'center' },
+  emptyText: { fontSize: 15, color: '#aaa' },
+  sectionHeader: {
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+  },
+  sectionTitle: { fontSize: 13, fontWeight: '700', color: '#555' },
 });

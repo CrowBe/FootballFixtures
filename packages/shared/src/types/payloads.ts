@@ -64,8 +64,19 @@ export interface RegisterResponse {
 
 // ---- POST /poll (protected — server-to-server) ------------------------------
 
+/** A game that reached FT/AET/PEN in this poll cycle. Used by the poller to write back final scores. */
+export interface FinalizedGame {
+  id: string;
+  competitionId: string;
+  homeScore: number;
+  awayScore: number;
+  status: 'FT' | 'AET' | 'PEN';
+}
+
 export interface PollResponse {
   ok: boolean;
   gamesChecked: number;
   eventsEmitted: number;
+  /** Games that reached a final status in this cycle — poller writes these back to the seed JSON. */
+  finalizedGames: FinalizedGame[];
 }

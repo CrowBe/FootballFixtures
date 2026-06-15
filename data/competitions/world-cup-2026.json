@@ -1,15 +1,894 @@
 {
-  "_comment": "Pinned openfootball snapshot — seeded and updated by the seed-diff workflow (Milestone 2). Do not edit manually.",
+  "_comment": "Pinned openfootball snapshot for World Cup 2026. Seed source: github.com/openfootball/world-cup.json. Updated by the seed-diff workflow and the local poller (FT write-back). Do not edit manually.",
   "competition": {
     "id": "world-cup-2026",
     "name": "World Cup 2026",
     "type": "cup",
     "season": 2026,
-    "dataSource": {
-      "provider": "api-football",
-      "league": 1,
-      "season": 2026
-    }
+    "dataSource": { "provider": "api-football", "league": 1, "season": 2026 }
   },
-  "games": []
+  "teams": [
+    { "id": "mexico",             "name": "Mexico",                "code": "MEX", "flag": "🇲🇽", "group": "Group A" },
+    { "id": "south-africa",       "name": "South Africa",          "code": "RSA", "flag": "🇿🇦", "group": "Group A" },
+    { "id": "south-korea",        "name": "South Korea",           "code": "KOR", "flag": "🇰🇷", "group": "Group A" },
+    { "id": "czech-republic",     "name": "Czech Republic",        "code": "CZE", "flag": "🇨🇿", "group": "Group A" },
+    { "id": "canada",             "name": "Canada",                "code": "CAN", "flag": "🇨🇦", "group": "Group B" },
+    { "id": "bosnia-herzegovina", "name": "Bosnia & Herzegovina",  "code": "BIH", "flag": "🇧🇦", "group": "Group B" },
+    { "id": "qatar",              "name": "Qatar",                 "code": "QAT", "flag": "🇶🇦", "group": "Group B" },
+    { "id": "switzerland",        "name": "Switzerland",           "code": "SUI", "flag": "🇨🇭", "group": "Group B" },
+    { "id": "brazil",             "name": "Brazil",                "code": "BRA", "flag": "🇧🇷", "group": "Group C" },
+    { "id": "morocco",            "name": "Morocco",               "code": "MAR", "flag": "🇲🇦", "group": "Group C" },
+    { "id": "haiti",              "name": "Haiti",                 "code": "HAI", "flag": "🇭🇹", "group": "Group C" },
+    { "id": "scotland",           "name": "Scotland",              "code": "SCO", "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "group": "Group C" },
+    { "id": "usa",                "name": "USA",                   "code": "USA", "flag": "🇺🇸", "group": "Group D" },
+    { "id": "paraguay",           "name": "Paraguay",              "code": "PAR", "flag": "🇵🇾", "group": "Group D" },
+    { "id": "australia",          "name": "Australia",             "code": "AUS", "flag": "🇦🇺", "group": "Group D" },
+    { "id": "turkey",             "name": "Turkey",                "code": "TUR", "flag": "🇹🇷", "group": "Group D" },
+    { "id": "germany",            "name": "Germany",               "code": "GER", "flag": "🇩🇪", "group": "Group E" },
+    { "id": "curacao",            "name": "Curaçao",               "code": "CUW", "flag": "🇨🇼", "group": "Group E" },
+    { "id": "ivory-coast",        "name": "Ivory Coast",           "code": "CIV", "flag": "🇨🇮", "group": "Group E" },
+    { "id": "ecuador",            "name": "Ecuador",               "code": "ECU", "flag": "🇪🇨", "group": "Group E" },
+    { "id": "netherlands",        "name": "Netherlands",           "code": "NED", "flag": "🇳🇱", "group": "Group F" },
+    { "id": "japan",              "name": "Japan",                 "code": "JPN", "flag": "🇯🇵", "group": "Group F" },
+    { "id": "sweden",             "name": "Sweden",                "code": "SWE", "flag": "🇸🇪", "group": "Group F" },
+    { "id": "tunisia",            "name": "Tunisia",               "code": "TUN", "flag": "🇹🇳", "group": "Group F" },
+    { "id": "belgium",            "name": "Belgium",               "code": "BEL", "flag": "🇧🇪", "group": "Group G" },
+    { "id": "egypt",              "name": "Egypt",                 "code": "EGY", "flag": "🇪🇬", "group": "Group G" },
+    { "id": "iran",               "name": "Iran",                  "code": "IRN", "flag": "🇮🇷", "group": "Group G" },
+    { "id": "new-zealand",        "name": "New Zealand",           "code": "NZL", "flag": "🇳🇿", "group": "Group G" },
+    { "id": "spain",              "name": "Spain",                 "code": "ESP", "flag": "🇪🇸", "group": "Group H" },
+    { "id": "cape-verde",         "name": "Cape Verde",            "code": "CPV", "flag": "🇨🇻", "group": "Group H" },
+    { "id": "saudi-arabia",       "name": "Saudi Arabia",          "code": "KSA", "flag": "🇸🇦", "group": "Group H" },
+    { "id": "uruguay",            "name": "Uruguay",               "code": "URU", "flag": "🇺🇾", "group": "Group H" },
+    { "id": "france",             "name": "France",                "code": "FRA", "flag": "🇫🇷", "group": "Group I" },
+    { "id": "senegal",            "name": "Senegal",               "code": "SEN", "flag": "🇸🇳", "group": "Group I" },
+    { "id": "iraq",               "name": "Iraq",                  "code": "IRQ", "flag": "🇮🇶", "group": "Group I" },
+    { "id": "norway",             "name": "Norway",                "code": "NOR", "flag": "🇳🇴", "group": "Group I" },
+    { "id": "argentina",          "name": "Argentina",             "code": "ARG", "flag": "🇦🇷", "group": "Group J" },
+    { "id": "algeria",            "name": "Algeria",               "code": "ALG", "flag": "🇩🇿", "group": "Group J" },
+    { "id": "austria",            "name": "Austria",               "code": "AUT", "flag": "🇦🇹", "group": "Group J" },
+    { "id": "jordan",             "name": "Jordan",                "code": "JOR", "flag": "🇯🇴", "group": "Group J" },
+    { "id": "portugal",           "name": "Portugal",              "code": "POR", "flag": "🇵🇹", "group": "Group K" },
+    { "id": "dr-congo",           "name": "DR Congo",              "code": "CGO", "flag": "🇨🇩", "group": "Group K" },
+    { "id": "uzbekistan",         "name": "Uzbekistan",            "code": "UZB", "flag": "🇺🇿", "group": "Group K" },
+    { "id": "colombia",           "name": "Colombia",              "code": "COL", "flag": "🇨🇴", "group": "Group K" },
+    { "id": "england",            "name": "England",               "code": "ENG", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "group": "Group L" },
+    { "id": "croatia",            "name": "Croatia",               "code": "CRO", "flag": "🇭🇷", "group": "Group L" },
+    { "id": "ghana",              "name": "Ghana",                 "code": "GHA", "flag": "🇬🇭", "group": "Group L" },
+    { "id": "panama",             "name": "Panama",                "code": "PAN", "flag": "🇵🇦", "group": "Group L" }
+  ],
+  "games": [
+    {
+      "id": "wc2026-001", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "mexico",       "name": "Mexico",       "code": "MEX", "flag": "🇲🇽" },
+      "awayTeam": { "id": "south-africa", "name": "South Africa", "code": "RSA", "flag": "🇿🇦" },
+      "kickoff": "2026-06-11T19:00:00Z", "status": "FT",
+      "homeScore": 2, "awayScore": 0, "group": "Group A", "round": "Group Stage",
+      "venue": "Mexico City", "finished": true
+    },
+    {
+      "id": "wc2026-002", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "south-korea",    "name": "South Korea",    "code": "KOR", "flag": "🇰🇷" },
+      "awayTeam": { "id": "czech-republic", "name": "Czech Republic", "code": "CZE", "flag": "🇨🇿" },
+      "kickoff": "2026-06-12T02:00:00Z", "status": "FT",
+      "homeScore": 2, "awayScore": 1, "group": "Group A", "round": "Group Stage",
+      "venue": "Guadalajara", "finished": true
+    },
+    {
+      "id": "wc2026-003", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "canada",              "name": "Canada",               "code": "CAN", "flag": "🇨🇦" },
+      "awayTeam": { "id": "bosnia-herzegovina",  "name": "Bosnia & Herzegovina", "code": "BIH", "flag": "🇧🇦" },
+      "kickoff": "2026-06-12T19:00:00Z", "status": "FT",
+      "homeScore": 1, "awayScore": 1, "group": "Group B", "round": "Group Stage",
+      "venue": "Toronto", "finished": true
+    },
+    {
+      "id": "wc2026-004", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "usa",      "name": "USA",      "code": "USA", "flag": "🇺🇸" },
+      "awayTeam": { "id": "paraguay", "name": "Paraguay", "code": "PAR", "flag": "🇵🇾" },
+      "kickoff": "2026-06-13T01:00:00Z", "status": "FT",
+      "homeScore": 4, "awayScore": 1, "group": "Group D", "round": "Group Stage",
+      "venue": "Los Angeles", "finished": true
+    },
+    {
+      "id": "wc2026-005", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "qatar",       "name": "Qatar",       "code": "QAT", "flag": "🇶🇦" },
+      "awayTeam": { "id": "switzerland", "name": "Switzerland", "code": "SUI", "flag": "🇨🇭" },
+      "kickoff": "2026-06-13T19:00:00Z", "status": "FT",
+      "homeScore": 1, "awayScore": 1, "group": "Group B", "round": "Group Stage",
+      "venue": "San Francisco Bay Area", "finished": true
+    },
+    {
+      "id": "wc2026-006", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "brazil",  "name": "Brazil",  "code": "BRA", "flag": "🇧🇷" },
+      "awayTeam": { "id": "morocco", "name": "Morocco", "code": "MAR", "flag": "🇲🇦" },
+      "kickoff": "2026-06-13T22:00:00Z", "status": "FT",
+      "homeScore": 1, "awayScore": 1, "group": "Group C", "round": "Group Stage",
+      "venue": "New York/New Jersey", "finished": true
+    },
+    {
+      "id": "wc2026-007", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "haiti",    "name": "Haiti",    "code": "HAI", "flag": "🇭🇹" },
+      "awayTeam": { "id": "scotland", "name": "Scotland", "code": "SCO", "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
+      "kickoff": "2026-06-14T01:00:00Z", "status": "FT",
+      "homeScore": 0, "awayScore": 1, "group": "Group C", "round": "Group Stage",
+      "venue": "Boston", "finished": true
+    },
+    {
+      "id": "wc2026-008", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "australia", "name": "Australia", "code": "AUS", "flag": "🇦🇺" },
+      "awayTeam": { "id": "turkey",    "name": "Turkey",    "code": "TUR", "flag": "🇹🇷" },
+      "kickoff": "2026-06-14T04:00:00Z", "status": "FT",
+      "homeScore": 2, "awayScore": 0, "group": "Group D", "round": "Group Stage",
+      "venue": "Vancouver", "finished": true
+    },
+    {
+      "id": "wc2026-009", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "germany", "name": "Germany", "code": "GER", "flag": "🇩🇪" },
+      "awayTeam": { "id": "curacao", "name": "Curaçao", "code": "CUW", "flag": "🇨🇼" },
+      "kickoff": "2026-06-14T17:00:00Z", "status": "FT",
+      "homeScore": 7, "awayScore": 1, "group": "Group E", "round": "Group Stage",
+      "venue": "Houston", "finished": true
+    },
+    {
+      "id": "wc2026-010", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "netherlands", "name": "Netherlands", "code": "NED", "flag": "🇳🇱" },
+      "awayTeam": { "id": "japan",       "name": "Japan",       "code": "JPN", "flag": "🇯🇵" },
+      "kickoff": "2026-06-14T20:00:00Z", "status": "FT",
+      "homeScore": 2, "awayScore": 2, "group": "Group F", "round": "Group Stage",
+      "venue": "Dallas", "finished": true
+    },
+    {
+      "id": "wc2026-011", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "ivory-coast", "name": "Ivory Coast", "code": "CIV", "flag": "🇨🇮" },
+      "awayTeam": { "id": "ecuador",     "name": "Ecuador",     "code": "ECU", "flag": "🇪🇨" },
+      "kickoff": "2026-06-14T23:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group E", "round": "Group Stage",
+      "venue": "Philadelphia", "finished": false
+    },
+    {
+      "id": "wc2026-012", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "sweden",  "name": "Sweden",  "code": "SWE", "flag": "🇸🇪" },
+      "awayTeam": { "id": "tunisia", "name": "Tunisia", "code": "TUN", "flag": "🇹🇳" },
+      "kickoff": "2026-06-15T02:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group F", "round": "Group Stage",
+      "venue": "Monterrey", "finished": false
+    },
+    {
+      "id": "wc2026-013", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "spain",      "name": "Spain",      "code": "ESP", "flag": "🇪🇸" },
+      "awayTeam": { "id": "cape-verde", "name": "Cape Verde", "code": "CPV", "flag": "🇨🇻" },
+      "kickoff": "2026-06-15T16:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group H", "round": "Group Stage",
+      "venue": "Atlanta", "finished": false
+    },
+    {
+      "id": "wc2026-014", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "belgium", "name": "Belgium", "code": "BEL", "flag": "🇧🇪" },
+      "awayTeam": { "id": "egypt",   "name": "Egypt",   "code": "EGY", "flag": "🇪🇬" },
+      "kickoff": "2026-06-15T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group G", "round": "Group Stage",
+      "venue": "Seattle", "finished": false
+    },
+    {
+      "id": "wc2026-015", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "saudi-arabia", "name": "Saudi Arabia", "code": "KSA", "flag": "🇸🇦" },
+      "awayTeam": { "id": "uruguay",      "name": "Uruguay",      "code": "URU", "flag": "🇺🇾" },
+      "kickoff": "2026-06-15T22:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group H", "round": "Group Stage",
+      "venue": "Miami", "finished": false
+    },
+    {
+      "id": "wc2026-016", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "iran",        "name": "Iran",        "code": "IRN", "flag": "🇮🇷" },
+      "awayTeam": { "id": "new-zealand", "name": "New Zealand", "code": "NZL", "flag": "🇳🇿" },
+      "kickoff": "2026-06-16T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group G", "round": "Group Stage",
+      "venue": "Los Angeles", "finished": false
+    },
+    {
+      "id": "wc2026-017", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "france",  "name": "France",  "code": "FRA", "flag": "🇫🇷" },
+      "awayTeam": { "id": "senegal", "name": "Senegal", "code": "SEN", "flag": "🇸🇳" },
+      "kickoff": "2026-06-16T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group I", "round": "Group Stage",
+      "venue": "New York/New Jersey", "finished": false
+    },
+    {
+      "id": "wc2026-018", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "iraq",   "name": "Iraq",   "code": "IRQ", "flag": "🇮🇶" },
+      "awayTeam": { "id": "norway", "name": "Norway", "code": "NOR", "flag": "🇳🇴" },
+      "kickoff": "2026-06-16T22:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group I", "round": "Group Stage",
+      "venue": "Boston", "finished": false
+    },
+    {
+      "id": "wc2026-019", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "argentina", "name": "Argentina", "code": "ARG", "flag": "🇦🇷" },
+      "awayTeam": { "id": "algeria",   "name": "Algeria",   "code": "ALG", "flag": "🇩🇿" },
+      "kickoff": "2026-06-17T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group J", "round": "Group Stage",
+      "venue": "Kansas City", "finished": false
+    },
+    {
+      "id": "wc2026-020", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "austria", "name": "Austria", "code": "AUT", "flag": "🇦🇹" },
+      "awayTeam": { "id": "jordan",  "name": "Jordan",  "code": "JOR", "flag": "🇯🇴" },
+      "kickoff": "2026-06-17T04:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group J", "round": "Group Stage",
+      "venue": "San Francisco Bay Area", "finished": false
+    },
+    {
+      "id": "wc2026-021", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "portugal", "name": "Portugal", "code": "POR", "flag": "🇵🇹" },
+      "awayTeam": { "id": "dr-congo", "name": "DR Congo", "code": "CGO", "flag": "🇨🇩" },
+      "kickoff": "2026-06-17T17:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group K", "round": "Group Stage",
+      "venue": "Houston", "finished": false
+    },
+    {
+      "id": "wc2026-022", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "england", "name": "England", "code": "ENG", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+      "awayTeam": { "id": "croatia", "name": "Croatia", "code": "CRO", "flag": "🇭🇷" },
+      "kickoff": "2026-06-17T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group L", "round": "Group Stage",
+      "venue": "Dallas", "finished": false
+    },
+    {
+      "id": "wc2026-023", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "ghana",  "name": "Ghana",  "code": "GHA", "flag": "🇬🇭" },
+      "awayTeam": { "id": "panama", "name": "Panama", "code": "PAN", "flag": "🇵🇦" },
+      "kickoff": "2026-06-17T23:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group L", "round": "Group Stage",
+      "venue": "Toronto", "finished": false
+    },
+    {
+      "id": "wc2026-024", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "uzbekistan", "name": "Uzbekistan", "code": "UZB", "flag": "🇺🇿" },
+      "awayTeam": { "id": "colombia",   "name": "Colombia",   "code": "COL", "flag": "🇨🇴" },
+      "kickoff": "2026-06-18T02:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group K", "round": "Group Stage",
+      "venue": "Mexico City", "finished": false
+    },
+    {
+      "id": "wc2026-025", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "czech-republic", "name": "Czech Republic", "code": "CZE", "flag": "🇨🇿" },
+      "awayTeam": { "id": "south-africa",   "name": "South Africa",   "code": "RSA", "flag": "🇿🇦" },
+      "kickoff": "2026-06-18T16:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group A", "round": "Group Stage",
+      "venue": "Atlanta", "finished": false
+    },
+    {
+      "id": "wc2026-026", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "switzerland",        "name": "Switzerland",        "code": "SUI", "flag": "🇨🇭" },
+      "awayTeam": { "id": "bosnia-herzegovina", "name": "Bosnia & Herzegovina","code": "BIH", "flag": "🇧🇦" },
+      "kickoff": "2026-06-18T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group B", "round": "Group Stage",
+      "venue": "Los Angeles", "finished": false
+    },
+    {
+      "id": "wc2026-027", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "canada", "name": "Canada", "code": "CAN", "flag": "🇨🇦" },
+      "awayTeam": { "id": "qatar",  "name": "Qatar",  "code": "QAT", "flag": "🇶🇦" },
+      "kickoff": "2026-06-18T22:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group B", "round": "Group Stage",
+      "venue": "Vancouver", "finished": false
+    },
+    {
+      "id": "wc2026-028", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "mexico",     "name": "Mexico",     "code": "MEX", "flag": "🇲🇽" },
+      "awayTeam": { "id": "south-korea","name": "South Korea","code": "KOR", "flag": "🇰🇷" },
+      "kickoff": "2026-06-19T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group A", "round": "Group Stage",
+      "venue": "Guadalajara", "finished": false
+    },
+    {
+      "id": "wc2026-029", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "usa",       "name": "USA",       "code": "USA", "flag": "🇺🇸" },
+      "awayTeam": { "id": "australia", "name": "Australia", "code": "AUS", "flag": "🇦🇺" },
+      "kickoff": "2026-06-19T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group D", "round": "Group Stage",
+      "venue": "Seattle", "finished": false
+    },
+    {
+      "id": "wc2026-030", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "scotland", "name": "Scotland", "code": "SCO", "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
+      "awayTeam": { "id": "morocco",  "name": "Morocco",  "code": "MAR", "flag": "🇲🇦" },
+      "kickoff": "2026-06-19T22:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group C", "round": "Group Stage",
+      "venue": "Boston", "finished": false
+    },
+    {
+      "id": "wc2026-031", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "brazil", "name": "Brazil", "code": "BRA", "flag": "🇧🇷" },
+      "awayTeam": { "id": "haiti",  "name": "Haiti",  "code": "HAI", "flag": "🇭🇹" },
+      "kickoff": "2026-06-20T00:30:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group C", "round": "Group Stage",
+      "venue": "Philadelphia", "finished": false
+    },
+    {
+      "id": "wc2026-032", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "turkey",   "name": "Turkey",   "code": "TUR", "flag": "🇹🇷" },
+      "awayTeam": { "id": "paraguay", "name": "Paraguay", "code": "PAR", "flag": "🇵🇾" },
+      "kickoff": "2026-06-20T03:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group D", "round": "Group Stage",
+      "venue": "San Francisco Bay Area", "finished": false
+    },
+    {
+      "id": "wc2026-033", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "netherlands", "name": "Netherlands", "code": "NED", "flag": "🇳🇱" },
+      "awayTeam": { "id": "sweden",      "name": "Sweden",      "code": "SWE", "flag": "🇸🇪" },
+      "kickoff": "2026-06-20T17:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group F", "round": "Group Stage",
+      "venue": "Houston", "finished": false
+    },
+    {
+      "id": "wc2026-034", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "germany",     "name": "Germany",     "code": "GER", "flag": "🇩🇪" },
+      "awayTeam": { "id": "ivory-coast", "name": "Ivory Coast", "code": "CIV", "flag": "🇨🇮" },
+      "kickoff": "2026-06-20T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group E", "round": "Group Stage",
+      "venue": "Toronto", "finished": false
+    },
+    {
+      "id": "wc2026-035", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tunisia", "name": "Tunisia", "code": "TUN", "flag": "🇹🇳" },
+      "awayTeam": { "id": "japan",   "name": "Japan",   "code": "JPN", "flag": "🇯🇵" },
+      "kickoff": "2026-06-21T04:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group F", "round": "Group Stage",
+      "venue": "Monterrey", "finished": false
+    },
+    {
+      "id": "wc2026-036", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "ecuador", "name": "Ecuador", "code": "ECU", "flag": "🇪🇨" },
+      "awayTeam": { "id": "curacao", "name": "Curaçao", "code": "CUW", "flag": "🇨🇼" },
+      "kickoff": "2026-06-21T00:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group E", "round": "Group Stage",
+      "venue": "Kansas City", "finished": false
+    },
+    {
+      "id": "wc2026-037", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "spain",        "name": "Spain",        "code": "ESP", "flag": "🇪🇸" },
+      "awayTeam": { "id": "saudi-arabia", "name": "Saudi Arabia", "code": "KSA", "flag": "🇸🇦" },
+      "kickoff": "2026-06-21T16:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group H", "round": "Group Stage",
+      "venue": "Atlanta", "finished": false
+    },
+    {
+      "id": "wc2026-038", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "belgium", "name": "Belgium", "code": "BEL", "flag": "🇧🇪" },
+      "awayTeam": { "id": "iran",    "name": "Iran",    "code": "IRN", "flag": "🇮🇷" },
+      "kickoff": "2026-06-21T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group G", "round": "Group Stage",
+      "venue": "Los Angeles", "finished": false
+    },
+    {
+      "id": "wc2026-039", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "uruguay",    "name": "Uruguay",    "code": "URU", "flag": "🇺🇾" },
+      "awayTeam": { "id": "cape-verde", "name": "Cape Verde", "code": "CPV", "flag": "🇨🇻" },
+      "kickoff": "2026-06-21T22:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group H", "round": "Group Stage",
+      "venue": "Miami", "finished": false
+    },
+    {
+      "id": "wc2026-040", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "new-zealand", "name": "New Zealand", "code": "NZL", "flag": "🇳🇿" },
+      "awayTeam": { "id": "egypt",       "name": "Egypt",       "code": "EGY", "flag": "🇪🇬" },
+      "kickoff": "2026-06-22T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group G", "round": "Group Stage",
+      "venue": "Vancouver", "finished": false
+    },
+    {
+      "id": "wc2026-041", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "argentina", "name": "Argentina", "code": "ARG", "flag": "🇦🇷" },
+      "awayTeam": { "id": "austria",   "name": "Austria",   "code": "AUT", "flag": "🇦🇹" },
+      "kickoff": "2026-06-22T17:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group J", "round": "Group Stage",
+      "venue": "Dallas", "finished": false
+    },
+    {
+      "id": "wc2026-042", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "france", "name": "France", "code": "FRA", "flag": "🇫🇷" },
+      "awayTeam": { "id": "iraq",   "name": "Iraq",   "code": "IRQ", "flag": "🇮🇶" },
+      "kickoff": "2026-06-22T21:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group I", "round": "Group Stage",
+      "venue": "Philadelphia", "finished": false
+    },
+    {
+      "id": "wc2026-043", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "norway",  "name": "Norway",  "code": "NOR", "flag": "🇳🇴" },
+      "awayTeam": { "id": "senegal", "name": "Senegal", "code": "SEN", "flag": "🇸🇳" },
+      "kickoff": "2026-06-23T00:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group I", "round": "Group Stage",
+      "venue": "New York/New Jersey", "finished": false
+    },
+    {
+      "id": "wc2026-044", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "jordan",  "name": "Jordan",  "code": "JOR", "flag": "🇯🇴" },
+      "awayTeam": { "id": "algeria", "name": "Algeria", "code": "ALG", "flag": "🇩🇿" },
+      "kickoff": "2026-06-23T03:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group J", "round": "Group Stage",
+      "venue": "San Francisco Bay Area", "finished": false
+    },
+    {
+      "id": "wc2026-045", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "portugal", "name": "Portugal", "code": "POR", "flag": "🇵🇹" },
+      "awayTeam": { "id": "uzbekistan","name": "Uzbekistan","code": "UZB", "flag": "🇺🇿" },
+      "kickoff": "2026-06-23T17:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group K", "round": "Group Stage",
+      "venue": "Houston", "finished": false
+    },
+    {
+      "id": "wc2026-046", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "england", "name": "England", "code": "ENG", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+      "awayTeam": { "id": "ghana",   "name": "Ghana",   "code": "GHA", "flag": "🇬🇭" },
+      "kickoff": "2026-06-23T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group L", "round": "Group Stage",
+      "venue": "Boston", "finished": false
+    },
+    {
+      "id": "wc2026-047", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "panama",  "name": "Panama",  "code": "PAN", "flag": "🇵🇦" },
+      "awayTeam": { "id": "croatia", "name": "Croatia", "code": "CRO", "flag": "🇭🇷" },
+      "kickoff": "2026-06-23T23:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group L", "round": "Group Stage",
+      "venue": "Toronto", "finished": false
+    },
+    {
+      "id": "wc2026-048", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "colombia", "name": "Colombia", "code": "COL", "flag": "🇨🇴" },
+      "awayTeam": { "id": "dr-congo", "name": "DR Congo", "code": "CGO", "flag": "🇨🇩" },
+      "kickoff": "2026-06-24T02:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group K", "round": "Group Stage",
+      "venue": "Guadalajara", "finished": false
+    },
+    {
+      "id": "wc2026-049", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "switzerland",        "name": "Switzerland",        "code": "SUI", "flag": "🇨🇭" },
+      "awayTeam": { "id": "canada",             "name": "Canada",             "code": "CAN", "flag": "🇨🇦" },
+      "kickoff": "2026-06-24T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group B", "round": "Group Stage",
+      "venue": "Vancouver", "finished": false
+    },
+    {
+      "id": "wc2026-050", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "bosnia-herzegovina", "name": "Bosnia & Herzegovina","code": "BIH", "flag": "🇧🇦" },
+      "awayTeam": { "id": "qatar",              "name": "Qatar",              "code": "QAT", "flag": "🇶🇦" },
+      "kickoff": "2026-06-24T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group B", "round": "Group Stage",
+      "venue": "Seattle", "finished": false
+    },
+    {
+      "id": "wc2026-051", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "scotland", "name": "Scotland", "code": "SCO", "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
+      "awayTeam": { "id": "brazil",   "name": "Brazil",   "code": "BRA", "flag": "🇧🇷" },
+      "kickoff": "2026-06-24T22:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group C", "round": "Group Stage",
+      "venue": "Miami", "finished": false
+    },
+    {
+      "id": "wc2026-052", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "morocco", "name": "Morocco", "code": "MAR", "flag": "🇲🇦" },
+      "awayTeam": { "id": "haiti",   "name": "Haiti",   "code": "HAI", "flag": "🇭🇹" },
+      "kickoff": "2026-06-24T22:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group C", "round": "Group Stage",
+      "venue": "Atlanta", "finished": false
+    },
+    {
+      "id": "wc2026-053", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "czech-republic", "name": "Czech Republic", "code": "CZE", "flag": "🇨🇿" },
+      "awayTeam": { "id": "mexico",         "name": "Mexico",         "code": "MEX", "flag": "🇲🇽" },
+      "kickoff": "2026-06-25T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group A", "round": "Group Stage",
+      "venue": "Mexico City", "finished": false
+    },
+    {
+      "id": "wc2026-054", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "south-africa", "name": "South Africa", "code": "RSA", "flag": "🇿🇦" },
+      "awayTeam": { "id": "south-korea",  "name": "South Korea",  "code": "KOR", "flag": "🇰🇷" },
+      "kickoff": "2026-06-25T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group A", "round": "Group Stage",
+      "venue": "Monterrey", "finished": false
+    },
+    {
+      "id": "wc2026-055", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "curacao",      "name": "Curaçao",     "code": "CUW", "flag": "🇨🇼" },
+      "awayTeam": { "id": "ivory-coast",  "name": "Ivory Coast", "code": "CIV", "flag": "🇨🇮" },
+      "kickoff": "2026-06-25T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group E", "round": "Group Stage",
+      "venue": "Philadelphia", "finished": false
+    },
+    {
+      "id": "wc2026-056", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "ecuador", "name": "Ecuador", "code": "ECU", "flag": "🇪🇨" },
+      "awayTeam": { "id": "germany", "name": "Germany", "code": "GER", "flag": "🇩🇪" },
+      "kickoff": "2026-06-25T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group E", "round": "Group Stage",
+      "venue": "New York/New Jersey", "finished": false
+    },
+    {
+      "id": "wc2026-057", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "japan",  "name": "Japan",  "code": "JPN", "flag": "🇯🇵" },
+      "awayTeam": { "id": "sweden", "name": "Sweden", "code": "SWE", "flag": "🇸🇪" },
+      "kickoff": "2026-06-25T23:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group F", "round": "Group Stage",
+      "venue": "Dallas", "finished": false
+    },
+    {
+      "id": "wc2026-058", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tunisia",     "name": "Tunisia",     "code": "TUN", "flag": "🇹🇳" },
+      "awayTeam": { "id": "netherlands", "name": "Netherlands", "code": "NED", "flag": "🇳🇱" },
+      "kickoff": "2026-06-25T23:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group F", "round": "Group Stage",
+      "venue": "Kansas City", "finished": false
+    },
+    {
+      "id": "wc2026-059", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "norway",  "name": "Norway",  "code": "NOR", "flag": "🇳🇴" },
+      "awayTeam": { "id": "france",  "name": "France",  "code": "FRA", "flag": "🇫🇷" },
+      "kickoff": "2026-06-26T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group I", "round": "Group Stage",
+      "venue": "Boston", "finished": false
+    },
+    {
+      "id": "wc2026-060", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "senegal", "name": "Senegal", "code": "SEN", "flag": "🇸🇳" },
+      "awayTeam": { "id": "iraq",    "name": "Iraq",    "code": "IRQ", "flag": "🇮🇶" },
+      "kickoff": "2026-06-26T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group I", "round": "Group Stage",
+      "venue": "Toronto", "finished": false
+    },
+    {
+      "id": "wc2026-061", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "turkey",   "name": "Turkey",   "code": "TUR", "flag": "🇹🇷" },
+      "awayTeam": { "id": "usa",      "name": "USA",      "code": "USA", "flag": "🇺🇸" },
+      "kickoff": "2026-06-26T02:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group D", "round": "Group Stage",
+      "venue": "Los Angeles", "finished": false
+    },
+    {
+      "id": "wc2026-062", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "paraguay",  "name": "Paraguay",  "code": "PAR", "flag": "🇵🇾" },
+      "awayTeam": { "id": "australia", "name": "Australia", "code": "AUS", "flag": "🇦🇺" },
+      "kickoff": "2026-06-26T02:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group D", "round": "Group Stage",
+      "venue": "San Francisco Bay Area", "finished": false
+    },
+    {
+      "id": "wc2026-063", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "cape-verde",   "name": "Cape Verde",   "code": "CPV", "flag": "🇨🇻" },
+      "awayTeam": { "id": "saudi-arabia", "name": "Saudi Arabia", "code": "KSA", "flag": "🇸🇦" },
+      "kickoff": "2026-06-27T00:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group H", "round": "Group Stage",
+      "venue": "Houston", "finished": false
+    },
+    {
+      "id": "wc2026-064", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "uruguay", "name": "Uruguay", "code": "URU", "flag": "🇺🇾" },
+      "awayTeam": { "id": "spain",   "name": "Spain",   "code": "ESP", "flag": "🇪🇸" },
+      "kickoff": "2026-06-27T00:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group H", "round": "Group Stage",
+      "venue": "Guadalajara", "finished": false
+    },
+    {
+      "id": "wc2026-065", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "egypt",       "name": "Egypt",       "code": "EGY", "flag": "🇪🇬" },
+      "awayTeam": { "id": "iran",        "name": "Iran",        "code": "IRN", "flag": "🇮🇷" },
+      "kickoff": "2026-06-27T03:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group G", "round": "Group Stage",
+      "venue": "Seattle", "finished": false
+    },
+    {
+      "id": "wc2026-066", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "new-zealand", "name": "New Zealand", "code": "NZL", "flag": "🇳🇿" },
+      "awayTeam": { "id": "belgium",     "name": "Belgium",     "code": "BEL", "flag": "🇧🇪" },
+      "kickoff": "2026-06-27T03:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group G", "round": "Group Stage",
+      "venue": "Vancouver", "finished": false
+    },
+    {
+      "id": "wc2026-067", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "colombia", "name": "Colombia", "code": "COL", "flag": "🇨🇴" },
+      "awayTeam": { "id": "portugal", "name": "Portugal", "code": "POR", "flag": "🇵🇹" },
+      "kickoff": "2026-06-27T23:30:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group K", "round": "Group Stage",
+      "venue": "Miami", "finished": false
+    },
+    {
+      "id": "wc2026-068", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "dr-congo",   "name": "DR Congo",   "code": "CGO", "flag": "🇨🇩" },
+      "awayTeam": { "id": "uzbekistan", "name": "Uzbekistan", "code": "UZB", "flag": "🇺🇿" },
+      "kickoff": "2026-06-27T23:30:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group K", "round": "Group Stage",
+      "venue": "Atlanta", "finished": false
+    },
+    {
+      "id": "wc2026-069", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "algeria", "name": "Algeria", "code": "ALG", "flag": "🇩🇿" },
+      "awayTeam": { "id": "austria", "name": "Austria", "code": "AUT", "flag": "🇦🇹" },
+      "kickoff": "2026-06-28T02:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group J", "round": "Group Stage",
+      "venue": "Kansas City", "finished": false
+    },
+    {
+      "id": "wc2026-070", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "jordan",    "name": "Jordan",    "code": "JOR", "flag": "🇯🇴" },
+      "awayTeam": { "id": "argentina", "name": "Argentina", "code": "ARG", "flag": "🇦🇷" },
+      "kickoff": "2026-06-28T02:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group J", "round": "Group Stage",
+      "venue": "Dallas", "finished": false
+    },
+    {
+      "id": "wc2026-071", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "panama",  "name": "Panama",  "code": "PAN", "flag": "🇵🇦" },
+      "awayTeam": { "id": "england", "name": "England", "code": "ENG", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+      "kickoff": "2026-06-27T21:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group L", "round": "Group Stage",
+      "venue": "New York/New Jersey", "finished": false
+    },
+    {
+      "id": "wc2026-072", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "croatia", "name": "Croatia", "code": "CRO", "flag": "🇭🇷" },
+      "awayTeam": { "id": "ghana",   "name": "Ghana",   "code": "GHA", "flag": "🇬🇭" },
+      "kickoff": "2026-06-27T21:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "group": "Group L", "round": "Group Stage",
+      "venue": "Philadelphia", "finished": false
+    },
+    {
+      "id": "wc2026-073", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-2a", "name": "2nd Group A", "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-2b", "name": "2nd Group B", "code": "TBD" },
+      "kickoff": "2026-06-28T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Los Angeles", "finished": false
+    },
+    {
+      "id": "wc2026-074", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1e",     "name": "1st Group E",               "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-3abcdf",  "name": "Best 3rd (A/B/C/D/F)",     "code": "TBD" },
+      "kickoff": "2026-06-29T20:30:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Boston", "finished": false
+    },
+    {
+      "id": "wc2026-075", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1f", "name": "1st Group F", "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-2c", "name": "2nd Group C", "code": "TBD" },
+      "kickoff": "2026-06-30T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Monterrey", "finished": false
+    },
+    {
+      "id": "wc2026-076", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1c", "name": "1st Group C", "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-2f", "name": "2nd Group F", "code": "TBD" },
+      "kickoff": "2026-06-29T17:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Houston", "finished": false
+    },
+    {
+      "id": "wc2026-077", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1i",      "name": "1st Group I",              "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-3cdfgh",   "name": "Best 3rd (C/D/F/G/H)",   "code": "TBD" },
+      "kickoff": "2026-06-30T21:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "New York/New Jersey", "finished": false
+    },
+    {
+      "id": "wc2026-078", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-2e", "name": "2nd Group E", "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-2i", "name": "2nd Group I", "code": "TBD" },
+      "kickoff": "2026-06-30T17:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Dallas", "finished": false
+    },
+    {
+      "id": "wc2026-079", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1a",     "name": "1st Group A",             "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-3cefhi",  "name": "Best 3rd (C/E/F/H/I)",  "code": "TBD" },
+      "kickoff": "2026-07-01T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Mexico City", "finished": false
+    },
+    {
+      "id": "wc2026-080", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1l",     "name": "1st Group L",             "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-3ehijk",  "name": "Best 3rd (E/H/I/J/K)",  "code": "TBD" },
+      "kickoff": "2026-07-01T16:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Atlanta", "finished": false
+    },
+    {
+      "id": "wc2026-081", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1d",     "name": "1st Group D",             "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-3befij",  "name": "Best 3rd (B/E/F/I/J)",  "code": "TBD" },
+      "kickoff": "2026-07-02T00:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "San Francisco Bay Area", "finished": false
+    },
+    {
+      "id": "wc2026-082", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1g",     "name": "1st Group G",             "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-3aehij",  "name": "Best 3rd (A/E/H/I/J)",  "code": "TBD" },
+      "kickoff": "2026-07-01T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Seattle", "finished": false
+    },
+    {
+      "id": "wc2026-083", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-2k", "name": "2nd Group K", "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-2l", "name": "2nd Group L", "code": "TBD" },
+      "kickoff": "2026-07-02T23:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Toronto", "finished": false
+    },
+    {
+      "id": "wc2026-084", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1h", "name": "1st Group H", "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-2j", "name": "2nd Group J", "code": "TBD" },
+      "kickoff": "2026-07-02T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Los Angeles", "finished": false
+    },
+    {
+      "id": "wc2026-085", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1b",     "name": "1st Group B",             "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-3efgij",  "name": "Best 3rd (E/F/G/I/J)",  "code": "TBD" },
+      "kickoff": "2026-07-03T03:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Vancouver", "finished": false
+    },
+    {
+      "id": "wc2026-086", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1j", "name": "1st Group J", "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-2h", "name": "2nd Group H", "code": "TBD" },
+      "kickoff": "2026-07-03T22:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Miami", "finished": false
+    },
+    {
+      "id": "wc2026-087", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-1k",     "name": "1st Group K",             "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-3deijl",  "name": "Best 3rd (D/E/I/J/L)",  "code": "TBD" },
+      "kickoff": "2026-07-04T01:30:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Kansas City", "finished": false
+    },
+    {
+      "id": "wc2026-088", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-slot-2d", "name": "2nd Group D", "code": "TBD" },
+      "awayTeam": { "id": "tbd-slot-2g", "name": "2nd Group G", "code": "TBD" },
+      "kickoff": "2026-07-03T18:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 32",
+      "venue": "Dallas", "finished": false
+    },
+    {
+      "id": "wc2026-089", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w74", "name": "Winner Game 74", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w77", "name": "Winner Game 77", "code": "TBD" },
+      "kickoff": "2026-07-04T21:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 16",
+      "venue": "Philadelphia", "finished": false
+    },
+    {
+      "id": "wc2026-090", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w73", "name": "Winner Game 73", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w75", "name": "Winner Game 75", "code": "TBD" },
+      "kickoff": "2026-07-04T17:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 16",
+      "venue": "Houston", "finished": false
+    },
+    {
+      "id": "wc2026-091", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w76", "name": "Winner Game 76", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w78", "name": "Winner Game 78", "code": "TBD" },
+      "kickoff": "2026-07-05T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 16",
+      "venue": "New York/New Jersey", "finished": false
+    },
+    {
+      "id": "wc2026-092", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w79", "name": "Winner Game 79", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w80", "name": "Winner Game 80", "code": "TBD" },
+      "kickoff": "2026-07-06T00:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 16",
+      "venue": "Mexico City", "finished": false
+    },
+    {
+      "id": "wc2026-093", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w83", "name": "Winner Game 83", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w84", "name": "Winner Game 84", "code": "TBD" },
+      "kickoff": "2026-07-06T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 16",
+      "venue": "Dallas", "finished": false
+    },
+    {
+      "id": "wc2026-094", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w81", "name": "Winner Game 81", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w82", "name": "Winner Game 82", "code": "TBD" },
+      "kickoff": "2026-07-07T00:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 16",
+      "venue": "Seattle", "finished": false
+    },
+    {
+      "id": "wc2026-095", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w86", "name": "Winner Game 86", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w88", "name": "Winner Game 88", "code": "TBD" },
+      "kickoff": "2026-07-07T16:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 16",
+      "venue": "Atlanta", "finished": false
+    },
+    {
+      "id": "wc2026-096", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w85", "name": "Winner Game 85", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w87", "name": "Winner Game 87", "code": "TBD" },
+      "kickoff": "2026-07-07T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Round of 16",
+      "venue": "Vancouver", "finished": false
+    },
+    {
+      "id": "wc2026-097", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w89", "name": "Winner Game 89", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w90", "name": "Winner Game 90", "code": "TBD" },
+      "kickoff": "2026-07-09T20:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Quarter-final",
+      "venue": "Boston", "finished": false
+    },
+    {
+      "id": "wc2026-098", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w93", "name": "Winner Game 93", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w94", "name": "Winner Game 94", "code": "TBD" },
+      "kickoff": "2026-07-10T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Quarter-final",
+      "venue": "Los Angeles", "finished": false
+    },
+    {
+      "id": "wc2026-099", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w91", "name": "Winner Game 91", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w92", "name": "Winner Game 92", "code": "TBD" },
+      "kickoff": "2026-07-11T21:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Quarter-final",
+      "venue": "Miami", "finished": false
+    },
+    {
+      "id": "wc2026-100", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w95", "name": "Winner Game 95", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w96", "name": "Winner Game 96", "code": "TBD" },
+      "kickoff": "2026-07-12T01:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Quarter-final",
+      "venue": "Kansas City", "finished": false
+    },
+    {
+      "id": "wc2026-101", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w97", "name": "Winner Game 97", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w98", "name": "Winner Game 98", "code": "TBD" },
+      "kickoff": "2026-07-14T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Semi-final",
+      "venue": "Dallas", "finished": false
+    },
+    {
+      "id": "wc2026-102", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w99",  "name": "Winner Game 99",  "code": "TBD" },
+      "awayTeam": { "id": "tbd-w100", "name": "Winner Game 100", "code": "TBD" },
+      "kickoff": "2026-07-15T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Semi-final",
+      "venue": "Atlanta", "finished": false
+    },
+    {
+      "id": "wc2026-103", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-l101", "name": "Loser Semi-final 1", "code": "TBD" },
+      "awayTeam": { "id": "tbd-l102", "name": "Loser Semi-final 2", "code": "TBD" },
+      "kickoff": "2026-07-18T21:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Third Place",
+      "venue": "Miami", "finished": false
+    },
+    {
+      "id": "wc2026-104", "competitionId": "world-cup-2026",
+      "homeTeam": { "id": "tbd-w101", "name": "Winner Semi-final 1", "code": "TBD" },
+      "awayTeam": { "id": "tbd-w102", "name": "Winner Semi-final 2", "code": "TBD" },
+      "kickoff": "2026-07-19T19:00:00Z", "status": "NS",
+      "homeScore": null, "awayScore": null, "round": "Final",
+      "venue": "New York/New Jersey", "finished": false
+    }
+  ]
 }

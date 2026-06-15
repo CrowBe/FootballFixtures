@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: footballfixtures-api
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build -w packages/shared && npm run build -w packages/server
+    startCommand: node packages/server/dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_FOOTBALL_KEY
+        sync: false   # set manually in the Render dashboard
+      - key: POLL_SECRET
+        sync: false   # set manually in the Render dashboard

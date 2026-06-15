@@ -13,6 +13,7 @@ export type {
   RegisterRequest,
   RegisterResponse,
   PollResponse,
+  FinalizedGame,
 } from './types/payloads.js';
 
 // Adapter interface
