@@ -1,0 +1,13 @@
+{
+  "name": "footballfixtures-enrich",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "One-shot API-Football enrichment: matches fixtures to our internal game IDs and writes providerIds into the competition seed JSON.",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "enrich": "node enrich.mjs",
+    "enrich:envfile": "node --env-file=.env enrich.mjs",
+    "dry-run": "node --env-file=.env enrich.mjs --dry-run"
+  }
+}

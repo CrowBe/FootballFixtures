@@ -44,4 +44,12 @@ export interface Game {
   round?: string;
   venue?: string;
   finished: boolean;
+  /**
+   * IDs for this game in upstream data providers, keyed by provider name.
+   * e.g. { "api-football": "867894" }
+   * Populated once by tools/enrich and kept in the seed JSON.
+   * When a fallback provider is added, its ID is stored here under its own key
+   * so the live adapter can prefer the primary and fall back gracefully.
+   */
+  providerIds?: Partial<Record<string, string>>;
 }

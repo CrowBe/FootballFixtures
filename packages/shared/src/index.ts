@@ -1,5 +1,5 @@
 // Types
-export type { Competition, CompetitionType, CompetitionDataSource, ApiFootballSourceConfig } from './types/competition.js';
+export type { Competition, CompetitionType, CompetitionDataSource, ApiFootballSourceConfig, DataProvider } from './types/competition.js';
 export type { Game, GameTeamRef, GameStatus } from './types/game.js';
 export { LIVE_STATUSES, FINISHED_STATUSES } from './types/game.js';
 export type { Team } from './types/team.js';

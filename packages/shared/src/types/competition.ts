@@ -13,6 +13,13 @@ export interface ApiFootballSourceConfig {
 /** Union — add new provider shapes here as they're implemented. */
 export type CompetitionDataSource = ApiFootballSourceConfig;
 
+/**
+ * Canonical provider identifier string.
+ * Derived from the union of all CompetitionDataSource shapes so it
+ * automatically expands when new providers are added.
+ */
+export type DataProvider = CompetitionDataSource['provider'];
+
 // ---- Competition ------------------------------------------------------------
 
 export interface Competition {
