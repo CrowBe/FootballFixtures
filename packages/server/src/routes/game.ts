@@ -14,13 +14,13 @@ export async function handleGameDetail(c: Context): Promise<Response> {
   const game = games.find((g) => g.id === id);
   if (!game) return c.json({ error: 'Game not found' }, 404);
 
-  const live = liveStore.get(COMPETITION_ID, id);
+  const live = liveStore.get(COMPETITION_ID, game.id);
   const { ttlSeconds, nextEventAt } = computeTtl([game]);
 
   const body: GameDetailResponse = {
     competitionId: COMPETITION_ID,
     game,
-    live,
+    ...(live !== undefined ? { live } : {}),
     ttlSeconds,
     nextEventAt,
   };

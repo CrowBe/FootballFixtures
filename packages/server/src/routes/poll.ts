@@ -3,7 +3,7 @@ import type { PollResponse, FinalizedGame, Game } from '@footballfixtures/shared
 import { LIVE_STATUSES } from '@footballfixtures/shared';
 import { loadCompetitionData } from '../data/loader.js';
 import { liveStore } from '../live/store.js';
-import { detectEvents, isFinalStatus } from '../live/diff.js';
+import { detectEvents } from '../live/diff.js';
 import { fanOut } from '../push/notify.js';
 import { createApiFootballAdapter } from '../adapters/api-football.js';
 import { normaliseTeamName } from '../adapters/api-football.js';

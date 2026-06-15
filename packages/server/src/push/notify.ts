@@ -1,4 +1,4 @@
-import { Expo } from 'expo-server-sdk';
+import { Expo, type ExpoPushMessage } from 'expo-server-sdk';
 import type { GameEvent, NotificationData } from '@footballfixtures/shared';
 import { pushRegistry } from './registry.js';
 
@@ -49,11 +49,11 @@ export async function fanOut(event: GameEvent): Promise<void> {
   const data = buildData(event);
 
   // Expo SDK batches tokens in chunks of 100 automatically
-  const messages = validTokens.map((to) => ({
+  const messages: ExpoPushMessage[] = validTokens.map((to) => ({
     to,
     title,
-    body: body || undefined,
-    data,
+    ...(body ? { body } : {}),
+    data: data as unknown as Record<string, unknown>,
     sound: 'default' as const,
     channelId: 'goals',  // Android notification channel (created in app)
   }));
