@@ -15,7 +15,13 @@ interface TeamStats {
 }
 
 function emptyStats(id: string, name: string, code: string, flag?: string): TeamStats {
-  return { id, name, code, flag, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 };
+  return {
+    id,
+    name,
+    code,
+    ...(flag !== undefined ? { flag } : {}),
+    played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0,
+  };
 }
 
 export function computeStandings(competitionId: string, games: Game[]): GroupStanding[] {
@@ -66,7 +72,7 @@ export function computeStandings(competitionId: string, games: Game[]): GroupSta
     const entries: StandingEntry[] = [...teamMap.values()]
       .map((s): StandingEntry => ({
         position: 0,
-        team: { id: s.id, name: s.name, code: s.code, flag: s.flag },
+        team: { id: s.id, name: s.name, code: s.code, ...(s.flag !== undefined ? { flag: s.flag } : {}) },
         played: s.played,
         won: s.won,
         drawn: s.drawn,

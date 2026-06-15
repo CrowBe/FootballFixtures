@@ -114,6 +114,7 @@ export function createApiFootballAdapter(
   }
 
   function toRawLive(f: ApifbFixture): RawLiveGame {
+    const minute = f.fixture.status.elapsed;
     return {
       externalId: String(f.fixture.id),
       homeTeam: mapTeam(f.teams.home),
@@ -122,7 +123,7 @@ export function createApiFootballAdapter(
       status: STATUS_MAP[f.fixture.status.short] ?? 'NS',
       homeScore: f.goals.home,
       awayScore: f.goals.away,
-      minute: f.fixture.status.elapsed ?? undefined,
+      ...(minute != null ? { minute } : {}),
     };
   }
 
@@ -152,7 +153,7 @@ export function createApiFootballAdapter(
         status: raw.status,
         homeScore: raw.homeScore ?? 0,
         awayScore: raw.awayScore ?? 0,
-        minute: raw.minute,
+        ...(raw.minute != null ? { minute: raw.minute } : {}),
         updatedAt: new Date().toISOString(),
       };
     },

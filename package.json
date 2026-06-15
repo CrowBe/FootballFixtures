@@ -6,6 +6,11 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "npm run build --workspace @footballfixtures/shared",
+    "build": "tsc --build packages/shared packages/server",
+    "build:shared": "npm run build --workspace @footballfixtures/shared",
+    "dev:server": "npm run dev --workspace @footballfixtures/server",
+    "dev:app": "npm run start --workspace @footballfixtures/app",
     "typecheck": "tsc --build packages/shared packages/server",
     "lint": "eslint .",
     "format": "prettier --write .",
