@@ -1,8 +1,17 @@
-import { SectionList, View, Text, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
+import {
+  SectionList,
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
 import { useScheduleQuery, useLiveQuery } from '../../src/api/queries.js';
 import { GameCard } from '../../src/components/GameCard.js';
+import { EmptyState } from '../../src/components/EmptyState.js';
 import { COMPETITION_ID } from '../../src/constants.js';
 import { localDateKey, formatKickoffDate } from '../../src/utils/time.js';
+import { palette } from '../../src/theme/tokens.js';
 import type { Game, LiveGameState } from '@footballfixtures/shared';
 
 interface Section {
@@ -39,20 +48,24 @@ export default function ScheduleScreen() {
   if (isLoading) {
     return (
       <View style={styles.centre}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={palette.orange} />
       </View>
     );
   }
 
-  if (isError || !data) {
+  if (isError) {
     return (
-      <View style={styles.centre}>
-        <Text style={styles.errorText}>Could not load schedule. Check your connection.</Text>
-      </View>
+      <EmptyState
+        icon="📡"
+        title="No connection"
+        message="Could not load the schedule. Check your internet connection and pull down to retry."
+        actionLabel="Retry"
+        onAction={refetch}
+      />
     );
   }
 
-  const sections = groupByDate(data.games);
+  const sections = groupByDate(data?.games ?? []);
 
   return (
     <SectionList
@@ -67,12 +80,18 @@ export default function ScheduleScreen() {
       contentContainerStyle={styles.list}
       stickySectionHeadersEnabled
       refreshControl={
-        <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+        <RefreshControl
+          refreshing={isRefetching}
+          onRefresh={refetch}
+          tintColor={palette.orange}
+        />
       }
       ListEmptyComponent={
-        <View style={styles.centre}>
-          <Text style={styles.emptyText}>No games scheduled.</Text>
-        </View>
+        <EmptyState
+          icon="🗓️"
+          title="No games scheduled"
+          message="Check back soon — the fixture list will appear here."
+        />
       }
     />
   );
@@ -81,8 +100,6 @@ export default function ScheduleScreen() {
 const styles = StyleSheet.create({
   list: { paddingBottom: 32 },
   centre: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
-  errorText: { fontSize: 15, color: '#888', textAlign: 'center' },
-  emptyText: { fontSize: 15, color: '#aaa' },
   sectionHeader: {
     backgroundColor: '#f0f0f0',
     paddingHorizontal: 16,
