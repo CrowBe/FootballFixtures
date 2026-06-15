@@ -14,8 +14,13 @@
 // the env file with `node --env-file=.env poll.mjs` (see README).
 // -----------------------------------------------------------------------------
 
-const SERVER_URL = (process.env.SERVER_URL || '').replace(/\/+$/, '');
-const POLL_SECRET = process.env.POLL_SECRET || '';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { execSync } from 'node:child_process';
+import { dirname } from 'node:path';
+
+const SERVER_URL    = (process.env.SERVER_URL || '').replace(/\/+$/, '');
+const POLL_SECRET   = process.env.POLL_SECRET || '';
+const REPO_DATA_PATH = process.env.REPO_DATA_PATH || '';  // absolute path to world-cup-2026.json
 
 // Tunables (all overridable via env)
 const LIVE_CADENCE_SEC     = num(process.env.LIVE_CADENCE_SEC, 60);   // how often to hit /poll during a window
@@ -40,9 +45,6 @@ async function fetchSchedule() {
   const res = await fetch(`${SERVER_URL}/schedule`, { headers: { accept: 'application/json' } });
   if (!res.ok) throw new Error(`GET /schedule -> ${res.status}`);
   const data = await res.json();
-  // Tolerant of either an array or { games: [...] }. Each game needs an ISO
-  // kickoff time and (ideally) a finished/status hint. Align these field names
-  // with the server's shared contract when it's built.
   const games = Array.isArray(data) ? data : (data.games ?? []);
   schedule = games
     .map((g) => ({
@@ -70,6 +72,47 @@ function windowState(now) {
   return { active, nextOpenAt };
 }
 
+// ---- Write-back: commit final scores to the competition JSON ----------------
+
+async function writeBackFinalScores(finalizedGames) {
+  if (!REPO_DATA_PATH || finalizedGames.length === 0) return;
+
+  try {
+    const seed = JSON.parse(readFileSync(REPO_DATA_PATH, 'utf-8'));
+    let changed = 0;
+    const names = [];
+
+    for (const fg of finalizedGames) {
+      const game = seed.games.find((g) => g.id === fg.id);
+      if (!game) { log(`write-back: game ${fg.id} not found in seed — skipping`); continue; }
+      game.status = fg.status;
+      game.homeScore = fg.homeScore;
+      game.awayScore = fg.awayScore;
+      game.finished = true;
+      names.push(`${game.homeTeam.name} ${fg.homeScore}-${fg.awayScore} ${game.awayTeam.name}`);
+      changed++;
+    }
+
+    if (changed === 0) return;
+
+    writeFileSync(REPO_DATA_PATH, JSON.stringify(seed, null, 2) + '\n', 'utf-8');
+
+    const repoDir = dirname(REPO_DATA_PATH);
+    const summary = names.join(', ').slice(0, 100);
+    const msg = `results: ${summary}`;
+
+    execSync(`git -C "${repoDir}" add "${REPO_DATA_PATH}"`, { stdio: 'pipe' });
+    execSync(`git -C "${repoDir}" commit -m "${msg.replace(/"/g, "'")}"`, { stdio: 'pipe' });
+    execSync(`git -C "${repoDir}" push`, { stdio: 'pipe' });
+
+    log(`write-back: committed and pushed ${changed} result(s) — ${summary}`);
+  } catch (e) {
+    log('write-back error:', e?.message ?? e);
+  }
+}
+
+// ---- Poll -------------------------------------------------------------------
+
 async function triggerPoll() {
   try {
     const res = await fetch(`${SERVER_URL}/poll`, {
@@ -77,14 +120,30 @@ async function triggerPoll() {
       headers: { authorization: `Bearer ${POLL_SECRET}`, 'content-type': 'application/json' },
       body: '{}',
     });
-    log(res.ok ? `poll ok (${res.status})` : `poll FAILED (${res.status})`);
+
+    if (!res.ok) {
+      log(`poll FAILED (${res.status})`);
+      return;
+    }
+
+    const body = await res.json().catch(() => ({}));
+    log(`poll ok — checked=${body.gamesChecked ?? '?'} events=${body.eventsEmitted ?? '?'} finalized=${body.finalizedGames?.length ?? 0}`);
+
+    if (body.finalizedGames?.length > 0) {
+      await writeBackFinalScores(body.finalizedGames);
+    }
   } catch (e) {
     log('poll error:', e?.message ?? e);
   }
 }
 
+// ---- Main loop --------------------------------------------------------------
+
 async function main() {
   log(`poller starting -> ${SERVER_URL}  (live cadence ${LIVE_CADENCE_SEC}s)`);
+  if (REPO_DATA_PATH) log(`write-back enabled -> ${REPO_DATA_PATH}`);
+  else log('write-back disabled (REPO_DATA_PATH not set)');
+
   process.on('SIGINT', () => { log('stopping'); process.exit(0); });
   process.on('SIGTERM', () => { log('stopping'); process.exit(0); });
 
