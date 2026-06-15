@@ -1,17 +1,22 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
-import type { Game } from '@footballfixtures/shared';
-import { LIVE_STATUSES } from '@footballfixtures/shared';
+import type { Game, LiveGameState } from '@footballfixtures/shared';
+import { LIVE_STATUSES, FINISHED_STATUSES } from '@footballfixtures/shared';
 import { formatKickoffTime } from '../utils/time.js';
 
 interface Props {
   game: Game;
+  live?: LiveGameState;
 }
 
-export function GameCard({ game }: Props) {
+export function GameCard({ game, live }: Props) {
   const router = useRouter();
-  const isLive = LIVE_STATUSES.has(game.status);
-  const isFinished = game.finished;
+
+  const status = live?.status ?? game.status;
+  const isLive = LIVE_STATUSES.has(status);
+  const isFinished = live ? FINISHED_STATUSES.has(status) : game.finished;
+  const homeScore = live?.homeScore ?? game.homeScore;
+  const awayScore = live?.awayScore ?? game.awayScore;
 
   return (
     <Pressable
@@ -22,7 +27,9 @@ export function GameCard({ game }: Props) {
     >
       {isLive && (
         <View style={styles.liveBadge}>
-          <Text style={styles.liveBadgeText}>LIVE</Text>
+          <Text style={styles.liveBadgeText}>
+            {status === 'HT' ? 'HT' : live?.minute != null ? `${live.minute}'` : 'LIVE'}
+          </Text>
         </View>
       )}
 
@@ -37,12 +44,14 @@ export function GameCard({ game }: Props) {
         <View style={styles.centre}>
           {isFinished || isLive ? (
             <Text style={[styles.score, isLive && styles.scoreLive]}>
-              {game.homeScore ?? 0} – {game.awayScore ?? 0}
+              {homeScore ?? 0} – {awayScore ?? 0}
             </Text>
           ) : (
             <Text style={styles.kickoff}>{formatKickoffTime(game.kickoff)}</Text>
           )}
-          <Text style={styles.status}>{game.status === 'NS' ? '' : game.status}</Text>
+          <Text style={styles.status}>
+            {isFinished && !isLive ? (status === 'AET' ? 'AET' : status === 'PEN' ? 'PEN' : 'FT') : ''}
+          </Text>
         </View>
 
         {/* Away team */}
@@ -53,7 +62,7 @@ export function GameCard({ game }: Props) {
       </View>
 
       {game.group && (
-        <Text style={styles.meta}>{game.group} · {game.venue ?? ''}</Text>
+        <Text style={styles.meta}>{game.group}{game.venue ? ` · ${game.venue}` : ''}</Text>
       )}
     </Pressable>
   );

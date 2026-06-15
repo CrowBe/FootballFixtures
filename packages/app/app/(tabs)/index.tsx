@@ -1,9 +1,9 @@
 import { SectionList, View, Text, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
-import { useScheduleQuery } from '../../src/api/queries.js';
+import { useScheduleQuery, useLiveQuery } from '../../src/api/queries.js';
 import { GameCard } from '../../src/components/GameCard.js';
 import { COMPETITION_ID } from '../../src/constants.js';
 import { localDateKey, formatKickoffDate } from '../../src/utils/time.js';
-import type { Game } from '@footballfixtures/shared';
+import type { Game, LiveGameState } from '@footballfixtures/shared';
 
 interface Section {
   title: string;
@@ -30,6 +30,11 @@ function groupByDate(games: Game[]): Section[] {
 
 export default function ScheduleScreen() {
   const { data, isLoading, isError, refetch, isRefetching } = useScheduleQuery(COMPETITION_ID);
+  const { data: liveData } = useLiveQuery(COMPETITION_ID);
+
+  const liveMap = new Map<string, LiveGameState>(
+    (liveData?.games ?? []).map((g) => [g.gameId, g]),
+  );
 
   if (isLoading) {
     return (
@@ -53,7 +58,7 @@ export default function ScheduleScreen() {
     <SectionList
       sections={sections}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <GameCard game={item} />}
+      renderItem={({ item }) => <GameCard game={item} live={liveMap.get(item.id)} />}
       renderSectionHeader={({ section }) => (
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>{section.title}</Text>

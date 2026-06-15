@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import type { ScheduleResponse, StandingsResponse } from '@footballfixtures/shared';
+import type { ScheduleResponse, StandingsResponse, LiveResponse, GameDetailResponse } from '@footballfixtures/shared';
 import { apiFetch } from './client.js';
 
 /** Query key factories — stable strings, easy to invalidate. */
@@ -7,6 +7,7 @@ export const queryKeys = {
   schedule: (competitionId: string) => ['schedule', competitionId] as const,
   standings: (competitionId: string) => ['standings', competitionId] as const,
   live: (competitionId: string) => ['live', competitionId] as const,
+  gameDetail: (gameId: string) => ['game', gameId] as const,
 };
 
 export function useScheduleQuery(competitionId: string) {
@@ -46,5 +47,44 @@ export function useStandingsQuery(competitionId: string) {
       return ttl != null ? ttl * 1000 : 60_000;
     },
     refetchIntervalInBackground: false,
+  });
+}
+
+export function useLiveQuery(competitionId: string) {
+  return useQuery({
+    queryKey: queryKeys.live(competitionId),
+    queryFn: async () => {
+      const { data } = await apiFetch<LiveResponse>(`/live`);
+      return data;
+    },
+    staleTime: (query) => {
+      const ttl = query.state.data?.ttlSeconds;
+      return ttl != null ? ttl * 1000 : 25_000;
+    },
+    refetchInterval: (query) => {
+      const ttl = query.state.data?.ttlSeconds;
+      return ttl != null ? ttl * 1000 : 25_000;
+    },
+    refetchIntervalInBackground: false,
+  });
+}
+
+export function useGameDetailQuery(gameId: string) {
+  return useQuery({
+    queryKey: queryKeys.gameDetail(gameId),
+    queryFn: async () => {
+      const { data } = await apiFetch<GameDetailResponse>(`/games/${gameId}`);
+      return data;
+    },
+    staleTime: (query) => {
+      const ttl = query.state.data?.ttlSeconds;
+      return ttl != null ? ttl * 1000 : 60_000;
+    },
+    refetchInterval: (query) => {
+      const ttl = query.state.data?.ttlSeconds;
+      return ttl != null ? ttl * 1000 : 60_000;
+    },
+    refetchIntervalInBackground: false,
+    enabled: !!gameId,
   });
 }
